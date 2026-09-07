@@ -1,0 +1,92 @@
+% !TeX root = ../thesis.tex
+\chapter{图表、算法、代码与文献}
+\label{chap:elements}
+
+\section{三线表与数据表达}
+表格应提供精确数据，正文负责解释趋势和意义。表~\ref{tab:comparison} 同时展示中文、数学符号、单位、有效数字和表下注释；表头不使用竖线，单位集中写在量名后，避免在每个数据单元中重复。
+
+\begin{table}[htbp]
+  \centering
+  \caption{不同计算方案的结果比较}
+  \label{tab:comparison}
+  \begin{tabular}{lcccc}
+    \toprule
+    方案 & 网格数 $n$ & 时间步长 $\Delta t$/\si{\second} & 峰值压力/\si{\kilo\pascal} & 相对误差/\% \\
+    \midrule
+    基准方案 & 12,800 & 0.10 & 86.42 & --- \\
+    加密网格 & 51,200 & 0.10 & 87.05 & 0.73 \\
+    缩短步长 & 12,800 & 0.05 & 86.67 & 0.29 \\
+    联合加密 & 51,200 & 0.05 & 87.12 & 0.81 \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{2pt}
+  \begin{minipage}{0.86\textwidth}\zihao{5}
+  注：相对误差以基准方案为参照；“---”表示该项不适用，而不是缺失数据。
+  \end{minipage}
+\end{table}
+
+\section{矢量图与双语题注}
+流程图适合使用矢量格式，缩放时线条和文字不会像低分辨率位图一样模糊。图~\ref{fig:workflow} 由 TikZ 直接生成，展示输入、求解、验证和输出之间的关系。
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    node distance=11mm,
+    box/.style={draw,rounded corners=2pt,minimum width=30mm,minimum height=10mm,align=center,fill=black!3},
+    arrow/.style={-{Latex[length=2.4mm]},thick}
+  ]
+    \node[box] (input) {数据与边界条件};
+    \node[box,right=of input] (model) {模型与参数};
+    \node[box,right=of model] (solve) {数值求解};
+    \node[box,below=of model] (verify) {收敛性与误差检验};
+    \node[box,right=of verify] (result) {结果解释与复现};
+    \draw[arrow] (input) -- (model);
+    \draw[arrow] (model) -- (solve);
+    \draw[arrow] (solve) -- (result);
+    \draw[arrow] (result) -- (verify);
+    \draw[arrow] (verify) -- (model);
+  \end{tikzpicture}
+  \bicaption{可复现计算流程}{A reproducible computational workflow}
+  \label{fig:workflow}
+\end{figure}
+
+\section{算法环境}
+算法~\ref{alg:gradient} 展示输入、输出、循环、判断和数学表达式。伪代码用于解释方法逻辑；能够直接运行的实现应放在代码环境或独立源文件中。
+
+\begin{algorithm}[htbp]
+  \caption{带停止准则的梯度迭代}
+  \label{alg:gradient}
+  \begin{algorithmic}[1]
+    \REQUIRE 初值 $\boldsymbol{w}_0$，步长 $\eta$，容差 $\varepsilon$
+    \ENSURE 近似解 $\boldsymbol{w}$
+    \STATE $k\leftarrow 0$
+    \REPEAT
+      \STATE $\boldsymbol{g}_k\leftarrow\nabla J(\boldsymbol{w}_k)$
+      \STATE $\boldsymbol{w}_{k+1}\leftarrow\boldsymbol{w}_k-\eta\boldsymbol{g}_k$
+      \STATE $k\leftarrow k+1$
+    \UNTIL{$\lVert\boldsymbol{g}_{k-1}\rVert_2<\varepsilon$}
+    \RETURN $\boldsymbol{w}_k$
+  \end{algorithmic}
+\end{algorithm}
+
+\section{程序代码}
+代码清单应使用等宽字体、保留缩进，并根据篇幅决定是否显示行号。清单~\ref{lst:python} 给出与算法~\ref{alg:gradient} 对应的 Python 实现。本地字体目录中存在更纱黑体等宽字体时，模板会优先使用该字体，从而同时支持中英文代码注释。
+
+\begin{lstlisting}[language=Python,caption={梯度迭代的 Python 实现},label={lst:python}]
+def gradient_descent(gradient, initial, step, tolerance, max_steps=1000):
+    """Return an approximate stationary point."""
+    value = initial
+    for iteration in range(max_steps):
+        direction = gradient(value)
+        if norm(direction) < tolerance:
+            return value, iteration
+        value = value - step * direction
+    raise RuntimeError("iteration did not converge")
+\end{lstlisting}
+
+\section{参考文献引用与著录类型}
+LaTeX 的基本思想和文档组织方法可参见 Lamport 的专著~\cite{lamport1994latex}。连续编号引用可以同时包含英文期刊论文与中文规范性文件~\cite{rahardjo1995,zhang2024,bjut2023guide}。参考文献表还保留图书、国家标准、技术报告、政府网络文件等类型，用于观察作者数量、英文大小写、标准号、卷期页码、DOI 和网址的输出差异~\cite{fredlund1993,gbt7713_1_2025,gbt7714_2025,zgqhgb2025,stateCouncil2025}。
+
+为使模板的参考文献样式得到充分展示，本示例列出数据库中的全部条目；正式论文不应使用 \verb|\nocite{*}|，而应只保留正文确实引用的文献。
+\nocite{*}

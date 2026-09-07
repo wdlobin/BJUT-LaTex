@@ -1,0 +1,9 @@
+BJUT master thesis LaTeX template, 2026 derivative edition.
+
+This product includes work derived from BJUTLATEX:
+https://github.com/bjut-swift/BJUTLATEX
+
+The upstream class identifies WangPeiKe as its original author and is
+distributed under the Apache License, Version 2.0. The derivative edition
+retains attribution and documents its material changes in CHANGELOG.md and
+docs/UPSTREAM.md.

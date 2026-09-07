@@ -1,0 +1,90 @@
+{
+    //------------------------------LaTeX 配置----------------------------------
+    // 设置是否自动编译
+    "latex-workshop.latex.autoBuild.run":"onSave",
+    //右键菜单
+    "latex-workshop.showContextMenu":true,
+    //从使用的包中自动补全命令和环境
+    "latex-workshop.intellisense.package.enabled": true,
+    //编译出错时设置是否弹出气泡设置
+    "latex-workshop.message.error.show": false,
+    "latex-workshop.message.warning.show": false,
+    // 将 PDF 和所有编译辅助文件统一输出到主文档目录下的 build 文件夹
+    "latex-workshop.latex.outDir": "%DIR%/build",
+    // 编译工具和命令
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": ["-synctex=1","-interaction=nonstopmode","-file-line-error","-output-directory=%OUTDIR%","%DOCFILE%"]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": ["-synctex=1","-interaction=nonstopmode","-file-line-error","-output-directory=%OUTDIR%","%DOCFILE%"]
+        },
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": ["-synctex=1","-interaction=nonstopmode","-file-line-error","-pdf","-outdir=%OUTDIR%","%DOCFILE%"]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": ["%DOCFILE%"]
+        },
+        {
+            "name": "biber",
+            "command": "biber",
+            "args": ["%DOCFILE%"]
+        }
+    ],
+    // 用于配置编译链
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "XeLaTeX（中文文档快速编译）",
+            "tools": ["xelatex"]
+        },
+        {
+            "name": "PDFLaTeX（英文文档快速编译）",
+            "tools": ["pdflatex"]
+        },
+        {
+            "name": "BibTeX（仅运行 BibTeX，用于调试引用）",
+            "tools": ["bibtex"]
+        },
+        {
+            "name": "LaTeXmk（英文文档自动多次编译）",
+            "tools": ["latexmk"]
+        },
+        {
+            "name": "XeLaTeX×2（两次编译，生成目录与交叉引用）",
+            "tools": ["xelatex", "xelatex"]
+        },
+        {
+            "name": "XeLaTeX→Biber→XeLaTeX×2（★推荐★ 中文论文 + biblatex + biber）",
+            "tools": ["xelatex", "biber", "xelatex", "xelatex"]
+        },
+        {
+            "name": "XeLaTeX→BibTeX→XeLaTeX×2（旧模板 中文论文 + bibtex）",
+            "tools": ["xelatex", "bibtex", "xelatex", "xelatex"]
+        },
+        {
+            "name": "PDFLaTeX→BibTeX→PDFLaTeX×2（英文论文）",
+            "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
+        }
+    ],
+    //文件清理。此属性必须是字符串数组
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux","*.bbl","*.blg","*.idx","*.ind","*.lof","*.lot","*.out","*.toc","*.acn","*.acr","*.alg","*.glg","*.glo","*.gls","*.ist","*.fls","*.fdb_latexmk","*.nav","*.snm","*.vrb","*.xdv"
+    ],
+    //设置为onBuilt 在构建结束后就清理生成的辅助文件
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    // 使用上次的recipe编译组合
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    // 用于反向同步的内部查看器的键绑定。ctrl/cmd +点击(默认)或双击
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+    
+    // 使用VSCode内置pdf查看器
+    "latex-workshop.view.pdf.viewer": "tab"
+}

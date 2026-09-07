@@ -1,0 +1,12 @@
+% !TeX root = ../thesis.tex
+\chapter{编译与定稿检查清单}
+
+附录适合收录较长推导、调查问卷、程序接口和补充数据。若论文不需要附录，可在主文件中注释对应的 \verb|\include| 行。定稿前建议依次完成以下检查：
+
+\begin{enumerate}
+  \item 使用 XeLaTeX 和 BibTeX 完成全量构建，确认日志中没有未定义引用；
+  \item 用 \verb|pdffonts build/thesis.pdf| 检查要求的中英文字体是否嵌入；
+  \item 以 100\% 比例比较 PDF 与学校 Word 样例中的页边距、正文行高和标题距离；
+  \item 检查所有图表、公式和参考文献均在正文中被引用；
+  \item 打印代表性页面，核对屏幕显示不易发现的线宽、灰度和字号差异。
+\end{enumerate}

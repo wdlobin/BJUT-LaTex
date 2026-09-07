@@ -1,0 +1,72 @@
+% !TeX root = ../thesis.tex
+\chapter{数学、物理符号与量和单位}
+\label{chap:method}
+
+\section{字母、数字与常用符号}
+数学变量通常使用斜体，函数名、单位和说明性下标使用正体。小写希腊字母可显示为
+$\alpha,\beta,\gamma,\delta,\epsilon,\varepsilon,\theta,\vartheta,\lambda,\mu,\nu,\xi,\pi,\rho,\sigma,\tau,\phi,\varphi,\chi,\psi,\omega$；大写形式包括
+$\Gamma,\Delta,\Theta,\Lambda,\Xi,\Pi,\Sigma,\Phi,\Psi,\Omega$。常用集合与运算符包括
+$\mathbb{R}$、$\mathbb{C}$、$\in$、$\notin$、$\subseteq$、$\cup$、$\cap$、$\forall$、$\exists$、$\nabla$、$\partial$、$\infty$、$\propto$、$\approx$、$\leq$ 和 $\geq$。
+
+横线类字符外形相近，但编码和用途不同。键盘直接输入的 \verb|-| 是 U+002D，本义是连字符兼减号；中文破折号“——”由两个 U+2014 字符组成；英文范围常用的短破折号“--”由 LaTeX 排成 en dash；数学减号“$-$”则应使用 U+2212 对应的数学字形。U+2212 既用于二元减法运算，也用于表示负数的一元负号；其他运算符各有自己的字符或数学字形，并非所有数学符号都是 U+2212。
+
+Word 正文中直接按键盘减号键，常会留下偏短、位置偏低的连字符，负号尤其容易被忽略。下面把同一表达式并列显示；错误行处于普通文本模式，两个短横线都是 U+002D，正确行处于数学模式，减法号和负号均按数学减号排版：
+\begin{center}
+  \begin{tabular}{cll}
+    错误 & \textrm{a-b=-2} & 文本连字符 U+002D\\
+    正确 & $a-b=-2$ & 数学减号 U+2212
+  \end{tabular}
+\end{center}
+在 LaTeX 源码中写作 \verb|$a-b=-2$| 即可；虽然源码仍由键盘输入 ASCII 字符，数学模式会选择正确的减号字形和运算间距。
+
+\section{行内公式和陈列公式}
+行内公式应当作为句子的一部分，例如向量 $\boldsymbol{x}\in\mathbb{R}^{n}$、矩阵 $\boldsymbol{A}\in\mathbb{R}^{m\times n}$ 和转置 $\boldsymbol{x}^{\mathsf T}$。较长的推导应使用带编号的陈列公式：
+\begin{equation}
+  J(\boldsymbol{w})=\frac{1}{n}\sum_{i=1}^{n}\left(y_i-\boldsymbol{w}^{\mathsf T}\boldsymbol{x}_i\right)^2+\lambda\lVert\boldsymbol{w}\rVert_2^2.
+  \label{eq:objective}
+\end{equation}
+式~\eqref{eq:objective} 同时展示求和、分式、范数、上下标、粗体变量及公式编号。分段函数、矩阵和微积分符号可写为
+\begin{equation}
+  f(x)=
+  \begin{cases}
+    \displaystyle \int_{0}^{x}\exp(-t^2)\,\mathrm{d}t, & x\geq 0,\\[4pt]
+    \displaystyle -\int_{x}^{0}\exp(-t^2)\,\mathrm{d}t, & x<0,
+  \end{cases}
+  \qquad
+  \boldsymbol{K}=\begin{bmatrix}k_{11}&k_{12}\\k_{21}&k_{22}\end{bmatrix}.
+\end{equation}
+
+多行公式使用对齐环境，使等号形成稳定的视觉轴：
+\begin{align}
+  \nabla\cdot\boldsymbol{q}+\frac{\partial \theta}{\partial t}&=s,\\
+  \boldsymbol{q}&=-\boldsymbol{K}\nabla(h+z),\\
+  \mathcal{L}\{f(t)\}(p)&=\int_{0}^{\infty} f(t)\exp(-pt)\,\mathrm{d}t.
+\end{align}
+
+学校撰写规范要求首次出现的物理量逐项注释时，破折号后的第一个字对齐。下面先给出一个完整公式，再用双长破折号逐项解释符号：
+\begin{equation}
+  \theta_{\mathrm f}=\frac{\mathrm d\varphi}{\mathrm d l}.
+  \label{eq:torsion-angle}
+\end{equation}
+\par\noindent 式中，\par\nobreak
+\begin{bjutformulaexplanation}
+  \bjutexplain{$M_{\mathrm f}$}{试样断裂时的最大扭矩，单位为牛顿米（\si{\newton\meter}）；}
+  \bjutexplain{$\theta_{\mathrm f}$}{试样断裂时单位长度上的相对扭转角，单位为弧度每毫米（\si{\radian\per\milli\meter}）；}
+  \bjutexplain{$l$}{试样的有效长度，单位为毫米（\si{\milli\meter}）。}
+\end{bjutformulaexplanation}
+其中“式中，”与正文左边界对齐并单独占一行；变量注释另起一行，整体缩进两个汉字，双长破折号后的第一个字由表格列统一对齐。直接输入空格无法保证字体切换或换行后的稳定位置。若所在学科或期刊习惯把符号解释写成连续中文段落，也可采用“式中，$M_{\mathrm f}$ 为……；$\theta_{\mathrm f}$ 为……；$l$ 为……”的形式。两种样式均可使用，但同一篇论文宜保持一致。
+
+\section{量、单位与乘号间距}
+模板通过\mbox{siunitx}统一量值和单位格式，并把复合单位之间的乘号设为居中的“$\cdot$”。例如力矩可写为 \qty{18.6}{\newton\meter}，刚度可写为 \qty{18.6}{\newton\per\meter}，输出分别为“$\mathrm{N\cdot m}$”和“$\mathrm{N\cdot m^{-1}}$”。乘号左右的间距由宏包负责，不应手工插入空格。
+
+其他典型量值包括温度 \qty{23.5}{\degreeCelsius}、压力 \qty{101.325}{\kilo\pascal}、速度 \qty{2.4e-3}{\meter\per\second}、密度 \qty{998}{\kilogram\per\cubic\meter}、角度 \ang{30} 以及范围 \qtyrange{10}{20}{\mega\pascal}。数字和单位之间保留不可断开的规范间距，单位符号使用正体，指数由单位结构自动生成。
+
+\section{数学字体检查要点}
+北京工业大学现行撰写规范把正文概括为“宋体，数字、字母等均用 Times New Roman”，但这一要求没有充分说明数学公式所需的专用字形及跨平台字体差异\cite{bjut2023guide}。Times New Roman 主要是西文正文字体，并不覆盖完整的数学运算符集合；复杂公式必然需要数学字体补足积分号、求和号、根号、伸缩括号等字形及其排版度量。因此，“宋体加 Times New Roman”可以描述正文的基本外观，却不能单独构成完整的科技写作字体方案。
+
+Word 自带的 OfficeMath 通常以 Cambria Math 作为默认数学字体；MathType 7 的默认方案则组合使用 Times New Roman、Symbol 和 MT Extra，而不是只靠一种字体完成全部公式。macOS 自带字体清单中采用 Times、Times Roman 等名称，具体软件也可能随版本、安装来源和字体映射显示不同名称。因此，模板不把 Windows 中的字体菜单名称视为跨平台的唯一标准，而是分别控制西文正文与数学符号。当前实现以 Times New Roman 作为西文正文首选，以 \textsf{newtxmath} 提供 Times 风格的数学字母、运算符和度量；缺少专有字体时，再回退至兼容的 TeX Live 字体。判断输出是否合规时，应分别核对正文西文字体、数学字母和数学符号，不应仅凭某个字母的外观推断整份文档字体错误。
+
+本模板的编排原则同时参考 GB/T 7713.1--2025 对学位论文组成和编排的规定，以及 GB/T 7714--2025 对参考文献著录和标引的规定\cite{gbt7713_1_2025,gbt7714_2025}。学校要求与国家标准发生差异时，提交版本仍应先确认研究生院和所在学院当年的明确要求。
+
+\section{跨学科表达示例}
+力学中的应力张量可写为 $\boldsymbol{\sigma}=\lambda\operatorname{tr}(\boldsymbol{\varepsilon})\boldsymbol{I}+2\mu\boldsymbol{\varepsilon}$；电路中的复阻抗可写为 $Z(\omega)=R+\mathrm{i}\omega L+1/(\mathrm{i}\omega C)$；统计量可写为 $\mathbb{E}[X]=\mu$ 和 $\operatorname{Var}(X)=\sigma^2$；化学反应则可用专用宏包表达为 \ce{CO2 + H2O <=> H2CO3}。这些例子可用于检查粗体张量、正体算子、虚数单位、黑板粗体和化学式中的上下标是否协调。

@@ -1,0 +1,65 @@
+% !TeX program = xelatex
+\documentclass{bjutthesis}
+\usepackage{placeins}
+\usepackage{listings}
+\usepackage[version=4]{mhchem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\graphicspath{{figure/}{./}}
+
+\definecolor{codebg}{RGB}{247,248,250}
+\definecolor{codecomment}{RGB}{55,125,75}
+\lstset{
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{black},
+  commentstyle=\color{codecomment},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!35},
+  numbers=left,
+  numberstyle=\scriptsize,
+  numbersep=8pt,
+  breaklines=true,
+  showstringspaces=false,
+  columns=fullflexible
+}
+
+\makeatletter
+\AtBeginDocument{%
+  \raggedbottom
+  \setlength{\textfloatsep}{4pt plus 2pt minus 2pt}
+  \setlength{\intextsep}{4pt plus 2pt minus 2pt}
+  \setlength{\floatsep}{4pt plus 2pt minus 2pt}
+  \setlength{\abovecaptionskip}{4pt}
+  \setlength{\belowcaptionskip}{0pt}
+  \setlength{\@fptop}{0pt}
+  \setlength{\@fpsep}{8pt}
+  \setlength{\@fpbot}{0pt}
+  \setlength{\jot}{10pt}
+}
+\makeatother
+
+\begin{document}
+\makecover
+\maketitle
+\makestate
+
+\frontmatter
+\include{chapter/abstract-cn}
+\include{chapter/abstract-en}
+\makebitoc
+
+\mainmatter
+\include{chapter/chapter01}
+\include{chapter/chapter02}
+\include{chapter/chapter03}
+\include{chapter/conclusion}
+\makebib{bib/references}
+
+\appendix
+\include{chapter/appendix}
+\backmatter
+\include{chapter/publications}
+\include{chapter/acknowledgements}
+\end{document}
