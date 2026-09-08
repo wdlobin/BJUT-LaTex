@@ -7,6 +7,7 @@
 \usetikzlibrary{arrows.meta,positioning}
 \graphicspath{{figure/}{./}}
 
+% 以下为代码示例的全局样式，不影响普通正文。
 \definecolor{codebg}{RGB}{247,248,250}
 \definecolor{codecomment}{RGB}{55,125,75}
 \lstset{
@@ -26,6 +27,7 @@
 }
 
 \makeatletter
+% 浮动体与公式间距在文档开始时统一设置，避免在各章手工插入空白。
 \AtBeginDocument{%
   \raggedbottom
   \setlength{\textfloatsep}{4pt plus 2pt minus 2pt}
@@ -41,16 +43,19 @@
 \makeatother
 
 \begin{document}
+% 封面信息统一来自 ezinfo.cfg：外封、内封、声明页。
 \makecover
 \maketitle
 \makestate
 
 \frontmatter
+% 前置部分使用罗马数字页码，并生成中英文目录。
 \include{chapter/abstract-cn}
 \include{chapter/abstract-en}
 \makebitoc
 
 \mainmatter
+% 正文从阿拉伯数字第 1 页重新计数。
 \include{chapter/chapter01}
 \include{chapter/chapter02}
 \include{chapter/chapter03}
@@ -58,6 +63,7 @@
 \makebib{bib/references}
 
 \appendix
+% \appendix 之后的章号自动切换为附录编号。
 \include{chapter/appendix}
 \backmatter
 \include{chapter/publications}

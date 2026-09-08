@@ -319,10 +319,12 @@
 
 \RequirePackage{ezinfo}
 \RequirePackage{xcolor}
-% TODO check
+% 学校标准色；当前专硕封面不使用，仅作学硕彩色外封的参考。
 \definecolor{bjut@color@official}{RGB}{0,150,195}
 
-% TODO 专业学位
+% === 学位类型相关：外封 ===
+% 当前是专硕白底封面。上游学硕版使用 RGB(6,146,190) 蓝绿底色和
+% bjut_logo_white.pdf；本仓库未保留该校徽文件，切换前需按学校最新规范补充并核对。
 \definecolor{bjut@color@coverbg}{RGB}{255,255,255}
 
 % \RequirePackage[demo]{graphicx} % 无插图，查重用
@@ -332,7 +334,7 @@
 
 \newcommand{\makecover}{
   \begin{titlepage}
-    % TODO check
+    % 外封临时使用独立页边距，结束后由 \restoregeometry 恢复正文版心。
     \newgeometry{left=10mm,right=10mm,top=10mm}
     \pagecolor{bjut@color@coverbg}
     \begin{flushleft}\zihao{5}\heiti\bfseries
@@ -345,9 +347,9 @@
       \end{tabular}
     \end{flushleft}
 
-    % TODO check
     \vskip 1.5cm
     \begin{center}
+      % 专硕使用白底灰绿校名图；学硕彩色封面需改用白色校徽资源。
       \includegraphics[width=10.8cm]{北工大_灰绿.jpg}
       \vskip 1.6cm
       % \contour[20]{white}{
@@ -362,6 +364,7 @@
       \begin{tabularx}{140mm}{@{}r@{：}X@{}}
         \makebox[40mm][s]{论文题目}      & \ez@ctitle \\
         \makebox[40mm][s]{论文作者}      & \ez@cauthor \\
+        % 上游学硕外封的对应标签为“学科”。
         \makebox[40mm][s]{专业类别/领域}          & \ez@cdiscipline \\
         \makebox[40mm][s]{指导教师}      & \ez@csupervisor~\ez@csupervstitle \\
         \makebox[40mm][s]{论文提交日期}  & \ez@cdate
@@ -374,7 +377,7 @@
   %\let\cleardoublepage\clearpage
 }
 
-% 内封
+% === 内封 ===
 \usepackage{ragged2e}
 \usepackage{booktabs}
 \newcolumntype{L}{>{\RaggedRight\hangafter=1\hangindent=0em}X}
@@ -394,6 +397,7 @@
     \vskip 2.2cm
     \begin{center}
       \makebox[\textwidth][c]{\zihao{-1}\kaishu\bfseries \ez@cinnertitle}\\[24pt]
+      % 学硕通常将 cstudytype 留空；专硕可在此显示“（全日制）”。
       {\zihao{-1}\kaishu\bfseries \ez@cstudytype}
     \end{center}
     \vskip 0.98cm
@@ -412,6 +416,7 @@
       \setlength\tabcolsep{0pt}
       \begin{tabularx}{122.6mm}{@{}p{35.3mm}@{：\ \ }l}
         \makebox[35.3mm][s]{\fangsong\bfseries{论文作者}}  &  \ez@cauthor\\
+        % 上游学硕内封的对应标签为“学科专业”。
         \makebox[35.3mm][s]{\fangsong\bfseries{专业类别/领域}}  &  \ez@cdiscipline\\
         \makebox[35.3mm][s]{\fangsong\bfseries{研究方向}}  &  \ez@cmajor\\
         \makebox[35.3mm][s]{\fangsong\bfseries{申请学位}}  &  \ez@cdegree\\
@@ -426,6 +431,7 @@
 }
 
 \newcommand{\makestate}{
+  % 声明页共用于学硕和专硕；签名内容由 ezinfo.cfg 控制。
   \begin{titlepage}
        \mbox{}
     \vskip .5cm
